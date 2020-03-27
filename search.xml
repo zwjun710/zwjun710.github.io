@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>try1</title>
+    <url>/zwjun710.github.io/2020/03/27/try1/</url>
+    <content><![CDATA[<p>为什么不更新了?</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hello world</title>
+    <url>/zwjun710.github.io/2020/03/27/hello%20world/</url>
+    <content><![CDATA[<p>hello from June</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hexo使用指南</title>
+    <url>/zwjun710.github.io/2020/03/26/hexo%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<p>Hexo给出的一些链接：</p>
+<p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> </p>
+<p><a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> </p>
+<p><a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> </p>
+<p><a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a></p>
+<p><a href="http://theme-next.iissnan.com/getting-started.html#theme-settings" target="_blank" rel="noopener">hexo文档</a></p>
+<a id="more"></a>
+
+<h2 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h2><h3 id="生成新的Post"><a href="#生成新的Post" class="headerlink" title="生成新的Post"></a>生成新的Post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="启动hexo"><a href="#启动hexo" class="headerlink" title="启动hexo"></a>启动hexo</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
