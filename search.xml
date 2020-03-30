@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hello world</title>
-    <url>/zwjun710.github.io/2020/03/27/hello%20world/</url>
-    <content><![CDATA[<p>hello from June</p>
+    <title>yolov3</title>
+    <url>/zwjun710.github.io/2020/03/29/yolov3/</url>
+    <content><![CDATA[<h1 id="YOLO系列原理部分梳理（包含v1-v2-v3）"><a href="#YOLO系列原理部分梳理（包含v1-v2-v3）" class="headerlink" title="YOLO系列原理部分梳理（包含v1/v2/v3）"></a>YOLO系列原理部分梳理（包含v1/v2/v3）</h1><p>​        YOLO（<a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">主页链接</a>）系列是one-stage目标检测算法的典型代表，下面对该系列的原理尽量简洁明了地梳理一下。下一篇会总结YOLO的实际应用。</p>
+<p>​        这里首先对one-stage和two-stage做出解释：</p>
+<p>​        1、two-stage</p>
+<p>​        典型代表R-CNN、Fast RCNN、Faster RCNN、R-FCN、Mask RCNN等。该方法首先输入图像经过主干网络完成特征提取，然后通过RPN（Region proposal network)来产生候选区域，同时也会完成区域的分类，最后通过分类和回归，得到对候选目标类别的判定和目标位置的确定。这里不对RCNN系列展开阐述，后续可能会补充一篇two-stage的内容。</p>
+<p>​        2、one-stage</p>
+<p>​        典型代表YOLO、SSD、RetinaNet等，该方法通过直接回归物体的类别概率和位置坐标值，并不进行区域建议，直接输入图像，通过主干网络+NMS，输出结果。</p>
+<a id="more"></a>
+
+<h1 id="YOLOv1"><a href="#YOLOv1" class="headerlink" title="YOLOv1"></a>YOLOv1</h1><p>​        YOLO（<a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">论文）</a>2016年的CVPR。内容参考了<a href="https://www.cnblogs.com/CZiFan/p/9516504.html" target="_blank" rel="noopener">博客园的一篇翻译文章</a> 。</p>
+<p>​        未完待续</p>
+<p>​    </p>
 ]]></content>
+      <tags>
+        <tag>object detection</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hexo使用指南</title>

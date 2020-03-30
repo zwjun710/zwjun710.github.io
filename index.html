@@ -284,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zwjun710.github.io/zwjun710.github.io/2020/03/27/hello%20world/">
+    <link itemprop="mainEntityOfPage" href="https://zwjun710.github.io/zwjun710.github.io/2020/03/29/yolov3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="June">
@@ -303,7 +303,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/zwjun710.github.io/2020/03/27/hello%20world/" itemprop="url">hello world</a></h1>
+                <a class="post-title-link" href="/zwjun710.github.io/2020/03/29/yolov3/" itemprop="url">yolov3</a></h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-27T00:25:39+08:00">
-                2020-03-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-29T20:32:58+08:00">
+                2020-03-29
               </time>
             
 
@@ -354,10 +354,19 @@
 
       
         
-          
-            <p>hello from June</p>
-
-          
+          <h1 id="YOLO系列原理部分梳理（包含v1-v2-v3）"><a href="#YOLO系列原理部分梳理（包含v1-v2-v3）" class="headerlink" title="YOLO系列原理部分梳理（包含v1/v2/v3）"></a>YOLO系列原理部分梳理（包含v1/v2/v3）</h1><p>​        YOLO（<a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">主页链接</a>）系列是one-stage目标检测算法的典型代表，下面对该系列的原理尽量简洁明了地梳理一下。下一篇会总结YOLO的实际应用。</p>
+<p>​        这里首先对one-stage和two-stage做出解释：</p>
+<p>​        1、two-stage</p>
+<p>​        典型代表R-CNN、Fast RCNN、Faster RCNN、R-FCN、Mask RCNN等。该方法首先输入图像经过主干网络完成特征提取，然后通过RPN（Region proposal network)来产生候选区域，同时也会完成区域的分类，最后通过分类和回归，得到对候选目标类别的判定和目标位置的确定。这里不对RCNN系列展开阐述，后续可能会补充一篇two-stage的内容。</p>
+<p>​        2、one-stage</p>
+<p>​        典型代表YOLO、SSD、RetinaNet等，该方法通过直接回归物体的类别概率和位置坐标值，并不进行区域建议，直接输入图像，通过主干网络+NMS，输出结果。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/zwjun710.github.io/2020/03/29/yolov3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -578,6 +587,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
