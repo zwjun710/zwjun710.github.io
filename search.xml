@@ -1,6 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>yolov3project</title>
+    <url>/zwjun710.github.io/2020/03/31/yolov3project/</url>
+    <content><![CDATA[<p>主要参考csdn的博客：</p>
+<p>yolov3：<a href="https://blog.csdn.net/weixin_42747301/article/details/96636614" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42747301/article/details/96636614</a></p>
+<p>显卡：<a href="https://www.cnblogs.com/raina/p/11129130.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11129130.html</a></p>
+<a id="more"></a>
+
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>在进行环境配置的时候出现错误是很正常的，请保持平和心态哈哈哈</p>
+<p>实在不行就关掉电脑出去散个步回来再装</p>
+<p>以上是我的人生经验</p>
+<h2 id="显卡驱动"><a href="#显卡驱动" class="headerlink" title="显卡驱动"></a>显卡驱动</h2><p>实验室电脑Nvidia titan xp，自己的电脑是MX250</p>
+<ol>
+<li>查看自己的GPU型号</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lspci | grep -i nvidia</span><br></pre></td></tr></table></figure>
+
+<p>首先需要安装显卡驱动，建议直接去官网下载而不是命令行，<a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">驱动链接</a></p>
+<ol>
+<li>查看自己的驱动和显卡信息</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ubuntu-drivers devices</span><br><span class="line"></span><br><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<p>我的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">modalias : pci:v000010DEd00001D13sv00001028sd0000089Cbc03sc02i00</span><br><span class="line"></span><br><span class="line">vendor   : NVIDIA Corporation</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-430 - third-party free</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-440 - third-party free recommended</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-435 - distro non-free</span><br><span class="line"></span><br><span class="line">driver   : xserver-xorg-video-nouveau - distro free builtin</span><br></pre></td></tr></table></figure>
+
+<p>如果没装驱动这时候nvidia-smi应该是没内容的</p>
+<ol>
+<li><p>下载完成后，进行安装，这里记得需要把语言改成English！</p>
+<p>首先卸载原来的驱动</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get remove --purge nvidia*</span><br></pre></td></tr></table></figure>
+
+<p>禁用nouveau（一定要禁用）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf</span><br></pre></td></tr></table></figure>
+
+<p>在最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blacklist nouveau</span><br></pre></td></tr></table></figure>
+
+<p>保存后终端输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure>
+
+<p>结束后重启电脑在终端输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
+
+<p>没有任何输出表示屏蔽成功</p>
+<p>禁用x服务并安装相关工具</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo &#x2F;etc&#x2F;init.d&#x2F;lightdm stop</span><br><span class="line">sudo apt-get install gcc</span><br><span class="line">sudo apt-get install make</span><br></pre></td></tr></table></figure>
+
+<p>安装驱动：</p>
+<p>终端进入命令行模式，输入用户名密码登录，cd到驱动下载目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo telinit 3</span><br><span class="line">#回到图形化界面输入 sudo telinit 5</span><br></pre></td></tr></table></figure>
+
+<p>输入命令，这里run文件是你自己的文件，名字太长可以用TAB补全</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls</span><br><span class="line">sudo .&#x2F;NVIDIA-Linux-x86_64-430.26.run –no-opengl-files</span><br></pre></td></tr></table></figure>
+
+<p>安装结束后重启</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<p>在安装驱动中出现</p>
+<blockquote>
+<p>The distribution-provided pre-install script filed! Are you sure you want to continue?</p>
+</blockquote>
+<p>选择 <strong>Continue installation</strong> 继续。<br> 出现</p>
+<blockquote>
+<p>The CC version check failed:</p>
+</blockquote>
+<p>选择 <strong>Ignore CC version check</strong></p>
+<p>其他的情况可以网上搜一搜</p>
+<p>安装完成后输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<p>出现类似的情况则表示安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sun Jan 5 00:28:09 2020</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.44 Driver Version: 440.44 CUDA Version: 10.2 |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan Temp Perf Pwr:Usage&#x2F;Cap| Memory-Usage | GPU-Util Compute M. |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 GeForce MX250 Off | 00000000:02:00.0 Off | N&#x2F;A |</span><br><span class="line">| N&#x2F;A 59C P0 N&#x2F;A &#x2F; N&#x2F;A | 90MiB &#x2F; 2002MiB | 18% Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes: GPU Memory |</span><br><span class="line">| GPU PID Type Process name Usage |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 1344 G &#x2F;usr&#x2F;lib&#x2F;xorg&#x2F;Xorg 90MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="cuda-cudnn"><a href="#cuda-cudnn" class="headerlink" title="cuda cudnn"></a>cuda cudnn</h2><ol>
+<li>下载cuda和cudnn</li>
+</ol>
+<p>cuda:<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p>cudnn:<a href="https://developer.nvidia.com/rdp/cudnn-archive" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-archive</a></p>
+<p>把cudnn安装包和四个补丁全部下载</p>
+<ol>
+<li>gcc g++降级，cuda需要低版本的</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install gcc-4.8</span><br><span class="line">sudo apt-get install g++-4.8</span><br><span class="line">cd &#x2F;usr&#x2F;bin</span><br><span class="line">ls -l gcc*</span><br></pre></td></tr></table></figure>
+
+<p>显示结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lrwxrwxrwx 1 root root 7th 3月  20 11:38 &#x2F;usr&#x2F;bin&#x2F;gcc -&gt; gcc-7</span><br></pre></td></tr></table></figure>
+
+<p>表示gcc链接到gcc-7, 需要将它改为链接到gcc-4.8，方法如下: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mv gcc gcc.bak #备份</span><br><span class="line">sudo ln -s gcc-4.8 gcc #重新链接</span><br></pre></td></tr></table></figure>
+
+<p>g++同理：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mv g++ g++.bak</span><br><span class="line">sudo ln -s g++-4.8 g++</span><br></pre></td></tr></table></figure>
+
+<p>在/usr/bin目录下查看gcc和g++版本，4.8表示成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls -l gcc*</span><br><span class="line">ls -l g++*</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安装cuda</li>
+</ol>
+<p>下载好了之后cd到下载目录，运行run文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo sh cuda_9.0.176_384.81_linux.run</span><br></pre></td></tr></table></figure>
+
+<p>然后一路accept或者yes，<strong>在提示是否安装显卡驱动时选择no（因为已经安装过了，否则可能会出现bug）</strong>,<strong>会提示驱动问题 不管他 继续</strong> </p>
+<p>接下来安装补丁文件，方法和安装cuda9.0一样： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo sh cuda_9.0.176.1_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.2_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.3_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.4_linux.run</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置环境</li>
+</ol>
+<p>打开.barshrc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo vim ~&#x2F;.barshrc</span><br></pre></td></tr></table></figure>
+
+<p>在最后面加入下面两条语句 ，这里cuda具体的版本是否是9.0根据自己的情况修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;      </span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安装cudnn，同cudn</li>
+</ol>
+<p>cd到下载目录，解压</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar zxvf cudnn-9.0-linux-x64-v7.1.tgz</span><br></pre></td></tr></table></figure>
+
+<p>把文件copy到cuda里面(cuda版本需要根据自己的修改)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp &#x2F;home&#x2F;**&#x2F;Downloads&#x2F;cuda&#x2F;include&#x2F;cudnn.h    &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;include</span><br><span class="line">sudo cp &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;cuda&#x2F;lib64&#x2F;libcudnn*    &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64</span><br><span class="line">sudo chmod a+r &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;cuda&#x2F;include&#x2F;cudnn.h   &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64&#x2F;libcudnn*</span><br></pre></td></tr></table></figure>
+
+<p>以上就完成了</p>
+<ol>
+<li>测试cuda是否安装好</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;samples&#x2F;1_Utilities&#x2F;deviceQuery #由自己电脑目录决定</span><br><span class="line"></span><br><span class="line">sudo make</span><br><span class="line"></span><br><span class="line">sudo .&#x2F;deviceQuery</span><br></pre></td></tr></table></figure>
+
+<p>出现一长串说明OK，我的是这样</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo .&#x2F;deviceQuery</span><br><span class="line">.&#x2F;deviceQuery Starting...</span><br><span class="line"> </span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"> </span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"> </span><br><span class="line">Device 0: &quot;GeForce MX250&quot;</span><br><span class="line">  CUDA Driver Version &#x2F; Runtime Version          10.2 &#x2F; 9.0</span><br><span class="line">  CUDA Capability Major&#x2F;Minor version number:    6.1</span><br><span class="line">  Total amount of global memory:                 2003 MBytes (2099904512 bytes)</span><br><span class="line">  ( 3) Multiprocessors, (128) CUDA Cores&#x2F;MP:     384 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1582 MHz (1.58 GHz)</span><br><span class="line">  Memory Clock rate:                             3004 Mhz</span><br><span class="line">  Memory Bus Width:                              64-bit</span><br><span class="line">  L2 Cache Size:                                 524288 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D&#x3D;(131072), 2D&#x3D;(131072, 65536), 3D&#x3D;(16384, 16384, 16384)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D&#x3D;(32768), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D&#x3D;(32768, 32768), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Supports Cooperative Kernel Launch:            Yes</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      Yes</span><br><span class="line">  Device PCI Domain ID &#x2F; Bus ID &#x2F; location ID:   0 &#x2F; 2 &#x2F; 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"> </span><br><span class="line">deviceQuery, CUDA Driver &#x3D; CUDART, CUDA Driver Version &#x3D; 10.2, CUDA Runtime Version &#x3D; 9.0, NumDevs &#x3D; 1</span><br><span class="line">Result &#x3D; PASS</span><br></pre></td></tr></table></figure>
+
+<p>注意，如果装了很多个版本的cuda，在bashrc里面切换版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="opencv"><a href="#opencv" class="headerlink" title="opencv"></a>opencv</h2><p>参考：<a href="https://blog.csdn.net/weixin_41851439/article/details/88712465" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41851439/article/details/88712465</a> </p>
+<p><a href="https://blog.csdn.net/sinat_16577223/article/details/78773506" target="_blank" rel="noopener">https://blog.csdn.net/sinat_16577223/article/details/78773506</a> </p>
+<ol>
+<li>下载源文件</li>
+</ol>
+<p><a href="https://opencv.org/releases.html" target="_blank" rel="noopener">https://opencv.org/releases.html</a> </p>
+<ol>
+<li>安装依赖项</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br><span class="line">sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br></pre></td></tr></table></figure>
+
+<p>安装时可能会出现错误</p>
+<blockquote>
+<p>E: Unable to locate package libjasper-dev</p>
+</blockquote>
+<p>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb http:&#x2F;&#x2F;security.ubuntu.com&#x2F;ubuntu xenial-security main&quot;</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libjasper1 libjasper-dev</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>下载好了之后修改opencv的配置文件</li>
+</ol>
+<p>找到OpenCVDetectCUDA.cmake文件并打开，修改set(HAVE_CUDA 1)为set(HAVE_CUDA 0)<br>这里修改的目的是为了避免后面执行sudo make install出现如下的错误信息。</p>
+<blockquote>
+<p>nvcc warning : The ‘compute_20’, ‘compute_20’,’sm_21’ architectures are deprecated</p>
+</blockquote>
+<ol>
+<li>编译（python3环境）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd build</span><br><span class="line"></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE&#x3D;Release -D CMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local -D PYTHON_DEFAULT_EXECUTABLE&#x3D;&#x2F;usr&#x2F;bin&#x2F;python3 -D BUILD_opencv_python3&#x3D;ON -D BUILD_opencv_python2&#x3D;OFF ..</span><br><span class="line"></span><br><span class="line">make -j8</span><br><span class="line"></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>进入python3</p>
+<p>import cv2</p>
+<p>无报错即成功</p>
+<h1 id="YOLO下载"><a href="#YOLO下载" class="headerlink" title="YOLO下载"></a>YOLO下载</h1><p>创建文件夹，在其中下载YOLO和yolov3的权重</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pjreddie&#x2F;darknet</span><br><span class="line">cd darknet</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;pjreddie.com&#x2F;media&#x2F;files&#x2F;yolov3.weights</span><br></pre></td></tr></table></figure>
+
+<p>修改makefile文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gedit Makefile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GPU&#x3D;1</span><br><span class="line">CUDNN&#x3D;1</span><br><span class="line">OPENCV&#x3D;１ # 如果安装了opencv则改为１</span><br><span class="line">OPENMP&#x3D;0</span><br><span class="line">DEBUG&#x3D;0</span><br><span class="line">...</span><br><span class="line">NVCC&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin&#x2F;nvcc # 原为 NVCC &#x3D; nvcc，cuda后面的紧跟自己的cuda版本，如cuda-9.0，cuda-10.0等</span><br></pre></td></tr></table></figure>
+
+<p>yolo主目录下重新make</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>cfg文件夹下的yolov3.cfg修改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Testing</span><br><span class="line">batch&#x3D;1</span><br><span class="line">subdivisions&#x3D;1</span><br><span class="line"># Training</span><br><span class="line"># batch&#x3D;64</span><br><span class="line"># subdivisions&#x3D;16</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>完成后测试</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;darknet detect cfg&#x2F;yolov3.cfg yolov3.weights data&#x2F;dog.jpg</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">layer     filters    size              input                output</span><br><span class="line">    0 conv     32  3 x 3 &#x2F; 1   416 x 416 x   3   -&gt;   416 x 416 x  32  0.299 BFLOPs</span><br><span class="line">    1 conv     64  3 x 3 &#x2F; 2   416 x 416 x  32   -&gt;   208 x 208 x  64  1.595 BFLOPs</span><br><span class="line">    .......</span><br><span class="line">  105 conv    255  1 x 1 &#x2F; 1    52 x  52 x 256   -&gt;    52 x  52 x 255  0.353 BFLOPs</span><br><span class="line">  106 detection</span><br><span class="line">truth_thresh: Using default &#39;1.000000&#39;</span><br><span class="line">Loading weights from yolov3.weights...Done!</span><br><span class="line">data&#x2F;dog.jpg: Predicted in 0.029329 seconds.</span><br><span class="line">dog: 99%</span><br><span class="line">truck: 93%</span><br><span class="line">bicycle: 99%</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h1><p>未完待续</p>
+]]></content>
+      <tags>
+        <tag>Object detection</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图片标注工具labelimage</title>
     <url>/zwjun710.github.io/2020/03/30/labelimage/</url>
     <content><![CDATA[<h1 id="简单好用的图片标注工具labelimage"><a href="#简单好用的图片标注工具labelimage" class="headerlink" title="简单好用的图片标注工具labelimage"></a>简单好用的图片标注工具labelimage</h1><h2 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h2><p>链接: <a href="https://pan.baidu.com/s/1PSf23n0i6EPMKUtqNqsIXQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1PSf23n0i6EPMKUtqNqsIXQ</a> </p>

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zwjun710.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zwjun710.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zwjun710.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zwjun710.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zwjun710.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zwjun710.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zwjun710.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Object detection," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 显卡：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yolov3project">
+<meta property="og:url" content="https://zwjun710.github.io/2020/03/31/yolov3project/index.html">
+<meta property="og:site_name" content="June&#39;s Daily">
+<meta property="og:description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 显卡：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
+<meta property="article:published_time" content="2020-03-31T05:25:55.000Z">
+<meta property="article:modified_time" content="2020-03-31T05:26:34.136Z">
+<meta property="article:author" content="June">
+<meta property="article:tag" content="Object detection">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zwjun710.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zwjun710.github.io/2020/03/31/yolov3project/"/>
+
+
+
+
+
+  <title>yolov3project | June's Daily</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zwjun710.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">June's Daily</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hi</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zwjun710.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/zwjun710.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zwjun710.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zwjun710.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zwjun710.github.io/zwjun710.github.io/2020/03/31/yolov3project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="June">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zwjun710.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="June's Daily">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">yolov3project</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T13:25:55+08:00">
+                2020-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要参考csdn的博客：</p>
+<p>yolov3：<a href="https://blog.csdn.net/weixin_42747301/article/details/96636614" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42747301/article/details/96636614</a></p>
+<p>显卡：<a href="https://www.cnblogs.com/raina/p/11129130.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11129130.html</a></p>
+<a id="more"></a>
+
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>在进行环境配置的时候出现错误是很正常的，请保持平和心态哈哈哈</p>
+<p>实在不行就关掉电脑出去散个步回来再装</p>
+<p>以上是我的人生经验</p>
+<h2 id="显卡驱动"><a href="#显卡驱动" class="headerlink" title="显卡驱动"></a>显卡驱动</h2><p>实验室电脑Nvidia titan xp，自己的电脑是MX250</p>
+<ol>
+<li>查看自己的GPU型号</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci | grep -i nvidia</span><br></pre></td></tr></table></figure>
+
+<p>首先需要安装显卡驱动，建议直接去官网下载而不是命令行，<a href="https://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">驱动链接</a></p>
+<ol>
+<li>查看自己的驱动和显卡信息</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu-drivers devices</span><br><span class="line"></span><br><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<p>我的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">modalias : pci:v000010DEd00001D13sv00001028sd0000089Cbc03sc02i00</span><br><span class="line"></span><br><span class="line">vendor   : NVIDIA Corporation</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-430 - third-party free</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-440 - third-party free recommended</span><br><span class="line"></span><br><span class="line">driver   : nvidia-driver-435 - distro non-free</span><br><span class="line"></span><br><span class="line">driver   : xserver-xorg-video-nouveau - distro free builtin</span><br></pre></td></tr></table></figure>
+
+<p>如果没装驱动这时候nvidia-smi应该是没内容的</p>
+<ol>
+<li><p>下载完成后，进行安装，这里记得需要把语言改成English！</p>
+<p>首先卸载原来的驱动</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove --purge nvidia*</span><br></pre></td></tr></table></figure>
+
+<p>禁用nouveau（一定要禁用）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf</span><br></pre></td></tr></table></figure>
+
+<p>在最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br></pre></td></tr></table></figure>
+
+<p>保存后终端输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure>
+
+<p>结束后重启电脑在终端输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
+
+<p>没有任何输出表示屏蔽成功</p>
+<p>禁用x服务并安装相关工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;etc&#x2F;init.d&#x2F;lightdm stop</span><br><span class="line">sudo apt-get install gcc</span><br><span class="line">sudo apt-get install make</span><br></pre></td></tr></table></figure>
+
+<p>安装驱动：</p>
+<p>终端进入命令行模式，输入用户名密码登录，cd到驱动下载目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo telinit 3</span><br><span class="line">#回到图形化界面输入 sudo telinit 5</span><br></pre></td></tr></table></figure>
+
+<p>输入命令，这里run文件是你自己的文件，名字太长可以用TAB补全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">sudo .&#x2F;NVIDIA-Linux-x86_64-430.26.run –no-opengl-files</span><br></pre></td></tr></table></figure>
+
+<p>安装结束后重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<p>在安装驱动中出现</p>
+<blockquote>
+<p>The distribution-provided pre-install script filed! Are you sure you want to continue?</p>
+</blockquote>
+<p>选择 <strong>Continue installation</strong> 继续。<br> 出现</p>
+<blockquote>
+<p>The CC version check failed:</p>
+</blockquote>
+<p>选择 <strong>Ignore CC version check</strong></p>
+<p>其他的情况可以网上搜一搜</p>
+<p>安装完成后输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<p>出现类似的情况则表示安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Sun Jan 5 00:28:09 2020</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.44 Driver Version: 440.44 CUDA Version: 10.2 |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan Temp Perf Pwr:Usage&#x2F;Cap| Memory-Usage | GPU-Util Compute M. |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 GeForce MX250 Off | 00000000:02:00.0 Off | N&#x2F;A |</span><br><span class="line">| N&#x2F;A 59C P0 N&#x2F;A &#x2F; N&#x2F;A | 90MiB &#x2F; 2002MiB | 18% Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes: GPU Memory |</span><br><span class="line">| GPU PID Type Process name Usage |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 1344 G &#x2F;usr&#x2F;lib&#x2F;xorg&#x2F;Xorg 90MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="cuda-cudnn"><a href="#cuda-cudnn" class="headerlink" title="cuda cudnn"></a>cuda cudnn</h2><ol>
+<li>下载cuda和cudnn</li>
+</ol>
+<p>cuda:<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p>cudnn:<a href="https://developer.nvidia.com/rdp/cudnn-archive" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-archive</a></p>
+<p>把cudnn安装包和四个补丁全部下载</p>
+<ol>
+<li>gcc g++降级，cuda需要低版本的</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-4.8</span><br><span class="line">sudo apt-get install g++-4.8</span><br><span class="line">cd &#x2F;usr&#x2F;bin</span><br><span class="line">ls -l gcc*</span><br></pre></td></tr></table></figure>
+
+<p>显示结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx 1 root root 7th 3月  20 11:38 &#x2F;usr&#x2F;bin&#x2F;gcc -&gt; gcc-7</span><br></pre></td></tr></table></figure>
+
+<p>表示gcc链接到gcc-7, 需要将它改为链接到gcc-4.8，方法如下: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mv gcc gcc.bak #备份</span><br><span class="line">sudo ln -s gcc-4.8 gcc #重新链接</span><br></pre></td></tr></table></figure>
+
+<p>g++同理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mv g++ g++.bak</span><br><span class="line">sudo ln -s g++-4.8 g++</span><br></pre></td></tr></table></figure>
+
+<p>在/usr/bin目录下查看gcc和g++版本，4.8表示成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls -l gcc*</span><br><span class="line">ls -l g++*</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安装cuda</li>
+</ol>
+<p>下载好了之后cd到下载目录，运行run文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh cuda_9.0.176_384.81_linux.run</span><br></pre></td></tr></table></figure>
+
+<p>然后一路accept或者yes，<strong>在提示是否安装显卡驱动时选择no（因为已经安装过了，否则可能会出现bug）</strong>,<strong>会提示驱动问题 不管他 继续</strong> </p>
+<p>接下来安装补丁文件，方法和安装cuda9.0一样： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo sh cuda_9.0.176.1_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.2_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.3_linux.run</span><br><span class="line"></span><br><span class="line">sudo sh cuda_9.0.176.4_linux.run</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置环境</li>
+</ol>
+<p>打开.barshrc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~&#x2F;.barshrc</span><br></pre></td></tr></table></figure>
+
+<p>在最后面加入下面两条语句 ，这里cuda具体的版本是否是9.0根据自己的情况修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;      </span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安装cudnn，同cudn</li>
+</ol>
+<p>cd到下载目录，解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf cudnn-9.0-linux-x64-v7.1.tgz</span><br></pre></td></tr></table></figure>
+
+<p>把文件copy到cuda里面(cuda版本需要根据自己的修改)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cp &#x2F;home&#x2F;**&#x2F;Downloads&#x2F;cuda&#x2F;include&#x2F;cudnn.h    &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;include</span><br><span class="line">sudo cp &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;cuda&#x2F;lib64&#x2F;libcudnn*    &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64</span><br><span class="line">sudo chmod a+r &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;cuda&#x2F;include&#x2F;cudnn.h   &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64&#x2F;libcudnn*</span><br></pre></td></tr></table></figure>
+
+<p>以上就完成了</p>
+<ol>
+<li>测试cuda是否安装好</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;samples&#x2F;1_Utilities&#x2F;deviceQuery #由自己电脑目录决定</span><br><span class="line"></span><br><span class="line">sudo make</span><br><span class="line"></span><br><span class="line">sudo .&#x2F;deviceQuery</span><br></pre></td></tr></table></figure>
+
+<p>出现一长串说明OK，我的是这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;deviceQuery</span><br><span class="line">.&#x2F;deviceQuery Starting...</span><br><span class="line"> </span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"> </span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"> </span><br><span class="line">Device 0: &quot;GeForce MX250&quot;</span><br><span class="line">  CUDA Driver Version &#x2F; Runtime Version          10.2 &#x2F; 9.0</span><br><span class="line">  CUDA Capability Major&#x2F;Minor version number:    6.1</span><br><span class="line">  Total amount of global memory:                 2003 MBytes (2099904512 bytes)</span><br><span class="line">  ( 3) Multiprocessors, (128) CUDA Cores&#x2F;MP:     384 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1582 MHz (1.58 GHz)</span><br><span class="line">  Memory Clock rate:                             3004 Mhz</span><br><span class="line">  Memory Bus Width:                              64-bit</span><br><span class="line">  L2 Cache Size:                                 524288 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D&#x3D;(131072), 2D&#x3D;(131072, 65536), 3D&#x3D;(16384, 16384, 16384)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D&#x3D;(32768), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D&#x3D;(32768, 32768), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time limit on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement for Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Supports Cooperative Kernel Launch:            Yes</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      Yes</span><br><span class="line">  Device PCI Domain ID &#x2F; Bus ID &#x2F; location ID:   0 &#x2F; 2 &#x2F; 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"> </span><br><span class="line">deviceQuery, CUDA Driver &#x3D; CUDART, CUDA Driver Version &#x3D; 10.2, CUDA Runtime Version &#x3D; 9.0, NumDevs &#x3D; 1</span><br><span class="line">Result &#x3D; PASS</span><br></pre></td></tr></table></figure>
+
+<p>注意，如果装了很多个版本的cuda，在bashrc里面切换版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="opencv"><a href="#opencv" class="headerlink" title="opencv"></a>opencv</h2><p>参考：<a href="https://blog.csdn.net/weixin_41851439/article/details/88712465" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41851439/article/details/88712465</a> </p>
+<p><a href="https://blog.csdn.net/sinat_16577223/article/details/78773506" target="_blank" rel="noopener">https://blog.csdn.net/sinat_16577223/article/details/78773506</a> </p>
+<ol>
+<li>下载源文件</li>
+</ol>
+<p><a href="https://opencv.org/releases.html" target="_blank" rel="noopener">https://opencv.org/releases.html</a> </p>
+<ol>
+<li>安装依赖项</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br><span class="line">sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br></pre></td></tr></table></figure>
+
+<p>安装时可能会出现错误</p>
+<blockquote>
+<p>E: Unable to locate package libjasper-dev</p>
+</blockquote>
+<p>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb http:&#x2F;&#x2F;security.ubuntu.com&#x2F;ubuntu xenial-security main&quot;</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libjasper1 libjasper-dev</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>下载好了之后修改opencv的配置文件</li>
+</ol>
+<p>找到OpenCVDetectCUDA.cmake文件并打开，修改set(HAVE_CUDA 1)为set(HAVE_CUDA 0)<br>这里修改的目的是为了避免后面执行sudo make install出现如下的错误信息。</p>
+<blockquote>
+<p>nvcc warning : The ‘compute_20’, ‘compute_20’,’sm_21’ architectures are deprecated</p>
+</blockquote>
+<ol>
+<li>编译（python3环境）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd build</span><br><span class="line"></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE&#x3D;Release -D CMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;local -D PYTHON_DEFAULT_EXECUTABLE&#x3D;&#x2F;usr&#x2F;bin&#x2F;python3 -D BUILD_opencv_python3&#x3D;ON -D BUILD_opencv_python2&#x3D;OFF ..</span><br><span class="line"></span><br><span class="line">make -j8</span><br><span class="line"></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>进入python3</p>
+<p>import cv2</p>
+<p>无报错即成功</p>
+<h1 id="YOLO下载"><a href="#YOLO下载" class="headerlink" title="YOLO下载"></a>YOLO下载</h1><p>创建文件夹，在其中下载YOLO和yolov3的权重</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pjreddie&#x2F;darknet</span><br><span class="line">cd darknet</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;pjreddie.com&#x2F;media&#x2F;files&#x2F;yolov3.weights</span><br></pre></td></tr></table></figure>
+
+<p>修改makefile文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit Makefile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GPU&#x3D;1</span><br><span class="line">CUDNN&#x3D;1</span><br><span class="line">OPENCV&#x3D;１ # 如果安装了opencv则改为１</span><br><span class="line">OPENMP&#x3D;0</span><br><span class="line">DEBUG&#x3D;0</span><br><span class="line">...</span><br><span class="line">NVCC&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin&#x2F;nvcc # 原为 NVCC &#x3D; nvcc，cuda后面的紧跟自己的cuda版本，如cuda-9.0，cuda-10.0等</span><br></pre></td></tr></table></figure>
+
+<p>yolo主目录下重新make</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>cfg文件夹下的yolov3.cfg修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Testing</span><br><span class="line">batch&#x3D;1</span><br><span class="line">subdivisions&#x3D;1</span><br><span class="line"># Training</span><br><span class="line"># batch&#x3D;64</span><br><span class="line"># subdivisions&#x3D;16</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>完成后测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;darknet detect cfg&#x2F;yolov3.cfg yolov3.weights data&#x2F;dog.jpg</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">layer     filters    size              input                output</span><br><span class="line">    0 conv     32  3 x 3 &#x2F; 1   416 x 416 x   3   -&gt;   416 x 416 x  32  0.299 BFLOPs</span><br><span class="line">    1 conv     64  3 x 3 &#x2F; 2   416 x 416 x  32   -&gt;   208 x 208 x  64  1.595 BFLOPs</span><br><span class="line">    .......</span><br><span class="line">  105 conv    255  1 x 1 &#x2F; 1    52 x  52 x 256   -&gt;    52 x  52 x 255  0.353 BFLOPs</span><br><span class="line">  106 detection</span><br><span class="line">truth_thresh: Using default &#39;1.000000&#39;</span><br><span class="line">Loading weights from yolov3.weights...Done!</span><br><span class="line">data&#x2F;dog.jpg: Predicted in 0.029329 seconds.</span><br><span class="line">dog: 99%</span><br><span class="line">truck: 93%</span><br><span class="line">bicycle: 99%</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h1><p>未完待续</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zwjun710.github.io/tags/Object-detection/" rel="tag"># Object detection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zwjun710.github.io/2020/03/30/labelimage/" rel="next" title="图片标注工具labelimage">
+                <i class="fa fa-chevron-left"></i> 图片标注工具labelimage
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zwjun710.github.io/images/avatar.png"
+                alt="June" />
+            
+              <p class="site-author-name" itemprop="name">June</p>
+              <p class="site-description motion-element" itemprop="description">If not now, when?</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zwjun710.github.io/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显卡驱动"><span class="nav-number">1.1.</span> <span class="nav-text">显卡驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda-cudnn"><span class="nav-number">1.2.</span> <span class="nav-text">cuda cudnn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opencv"><span class="nav-number">1.3.</span> <span class="nav-text">opencv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO下载"><span class="nav-number">2.</span> <span class="nav-text">YOLO下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据集设置"><span class="nav-number">3.</span> <span class="nav-text">数据集设置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">June</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zwjun710.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zwjun710.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zwjun710.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/zwjun710.github.io/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
