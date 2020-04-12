@@ -3,9 +3,9 @@
   <entry>
     <title>python_cpp_面经</title>
     <url>/zwjun710.github.io/2020/04/12/python-cpp-%E9%9D%A2%E7%BB%8F/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><a id="more"></a>
 
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><hr>
+<hr>
 <h5 id="万物皆可对象"><a href="#万物皆可对象" class="headerlink" title="万物皆可对象"></a>万物皆可对象</h5><p><strong>Python 中的一切都可以赋值给变量或者作为参数传递给函数。</strong> </p>
 <p>python的所有对象都有三个特性，第一个是id，每个对象都有一个唯一的身份表示自己，可以通过id()来获取到对应的内存地址；</p>
 <p>第二个是type，对象的类型；</p>
