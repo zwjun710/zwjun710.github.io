@@ -1,6 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python_cpp_面经</title>
+    <url>/zwjun710.github.io/2020/04/12/python-cpp-%E9%9D%A2%E7%BB%8F/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><hr>
+<h5 id="万物皆可对象"><a href="#万物皆可对象" class="headerlink" title="万物皆可对象"></a>万物皆可对象</h5><p><strong>Python 中的一切都可以赋值给变量或者作为参数传递给函数。</strong> </p>
+<p>python的所有对象都有三个特性，第一个是id，每个对象都有一个唯一的身份表示自己，可以通过id()来获取到对应的内存地址；</p>
+<p>第二个是type，对象的类型；</p>
+<p>第三个是值，对象所标识的数据。</p>
+<p>变量在python里可以说是对象的引用，因为变量存储的是对象的地址，通过id来引用对象。</p>
+<p>dir()可以返回对象的基本属性和方法</p>
+<hr>
+<h5 id="Python2-Python3的区别"><a href="#Python2-Python3的区别" class="headerlink" title="Python2 Python3的区别"></a>Python2 Python3的区别</h5><p>1、编码</p>
+<p>python2的默认编码是ascii，所以在开头总得写上代码来将编码方式转换为utf8，不然中文就会报错，</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br></pre></td></tr></table></figure>
+
+<p>而python3默认编码就是utf-8，不需要开头写编码方式了。</p>
+<p>2、字符串（最大的变化）</p>
+<p>python2里面字符串有两个类型，一个是Unicode来表示文本字符串，一个是str来表示字节序列，但是这两个使用起来没有明显的界限，往往就会比较混乱。</p>
+<p>python3里面就分别用str表示字符串，用byte表示字节序列，需要写入文本或者网络传输的数据就只接受字节序列。</p>
+<p>3、print和input及一些语法的区别</p>
+<p>python2里面print并不是一个函数，所以大家print的时候可以写“”，也可以带括号，但是python3里面print就是一个函数，必须带上小括号。</p>
+<p>input的话，python2里面是raw_input()，python3里面是input()</p>
+<p>4、迭代器</p>
+<p>python2里面很多返回列表对象的内置函数和方法，在python3里面都返回类似于迭代器的对象。</p>
+<p>还有一些细节上面的区别。</p>
+<hr>
+<h5 id="Python函数调用传递方式"><a href="#Python函数调用传递方式" class="headerlink" title="Python函数调用传递方式"></a>Python函数调用传递方式</h5><p>C函数调用时是值传递，形参和实参分配不同的内存地址，函数内修改形参不影响实参，如果需要在函数内部修改实参，就传递指针。</p>
+<p>python里面</p>
+<p>在参数传递时，实参将标签复制给了形参，这个时候形参和实参都是指向同一个对象。</p>
+<p>在函数内修改形参，</p>
+<p>有可变类型list dict 和不可变类型int float string tuple</p>
+<p>对于不可变类型，函数内部修改需要创造新的对象，修改形参的话它的实参不会改变；对于可变类型list dictionary，函数内部修改是直接在原对象上面修改。</p>
+<hr>
+<h5 id="赋值、深拷贝、浅拷贝"><a href="#赋值、深拷贝、浅拷贝" class="headerlink" title="赋值、深拷贝、浅拷贝"></a>赋值、深拷贝、浅拷贝</h5><p>赋值：两个变量指向内存中的同一个对象</p>
+<p>浅拷贝：创建一个新的组合对象，引用原对象中的元素（子对象）</p>
+<p><strong>切片操作、工厂操作</strong> ？、copy()等</p>
+<p>深拷贝：创建一个新的组合对象，也会拷贝原对象中的子对象</p>
+<p>copy模块中的deepcopy</p>
+<hr>
+<h5 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h5><p>对于操作系统来说，一个任务就是一个进程，比如说打开了一个txt文档；进程内的子任务是线程，比如说可以打印、拼写检查、搜索、打字等等。一个进程至少有一个或者多个线程。</p>
+<p>*<em>线程有哪些状态 *</em></p>
+<p>新建、就绪、运行、阻塞、死亡</p>
+<p>使用start()进入就绪状态</p>
+<p>run()进入运行</p>
+<p>遇到异常或者任务执行完毕，线程会进入死亡状态</p>
+<p><strong>多进程</strong></p>
+<p>1、linux里面 fork() 父进程 子进程 返回两次，一个是子进程的返回0 一个是父进程返回子进程id</p>
+<p>python的os模块里面的fork()</p>
+<p>os.getpid拿到子进程的id os.getppid拿到父进程的id</p>
+<p>2、windows里面没有fork，用<strong>multiprocessing</strong>模块，里面的process类可以代表进程对象</p>
+<p>3、multiprocessing里面的进程池Pool可以批量创建子进程</p>
+<p>4、subprocess模块可以启动子进程，控制子进程的输入输出communicate()</p>
+<p><strong>多线程</strong></p>
+<p>threading模块</p>
+<p>启动一个线程就是把函数传入并创建thread实例，然后调用start（）开始执行</p>
+<p>current_thread()函数返回当前线程实例</p>
+<p>多线程和多进程的最大不同在于，多进程中同一个变量都各自有一份拷贝在每个进程中，互不影响，而多线程中，所有变量都由所有线程共享，所以任何一个变量都可以被任何一个线程修改。</p>
+<p>为了避免这种现象，加入了线程锁threading.lock()来实现。这样多个线程同时执行该程序，只有一个线程能成功获取锁。</p>
+<p>同时因为可能存在多个锁，不同线程持有不同的锁，导致多个线程全部挂起。就只能靠操作系统强制终止。</p>
+<p>python自带GIL锁，所以最多只能用到一个核。不是真的多线程</p>
+<h6 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h6><p>子进程之间的通信使用multiprocessing的Queue\Pipes等方式交换数据 还有socket</p>
+<p>具体怎么操作还没怎么看。。。反正就是queue和pipe</p>
+<p>pipe是两个进程一读一写的单双工情况</p>
+<p>线程之间通信可以使用queue</p>
+<hr>
+<h5 id="多线程、多进程"><a href="#多线程、多进程" class="headerlink" title="多线程、多进程"></a>多线程、多进程</h5><p>多进程的最大优点就是稳定性高，一个子进程不会影响到主进程和其他子进程。缺点的话是创造进程的代价比较大，同时进程数也有限。</p>
+<p>多线程的优点就是速度可能会比较快，缺点是任何一个线程出现问题就可能回导致整个的进程崩溃。</p>
+<hr>
+<p>*<em>垃圾回收 *</em></p>
+<p>​    python里面垃圾的存在，就像我用class定义了一个类，然后我在函数里面申明了该类的几个实例对象，当这个函数被调用完，结束之后，程序就没有可以引用该函数这几个实例的地方了，因此这几个实例就变成了垃圾对象，也就是所谓的内存垃圾。</p>
+<p>​    垃圾回收就是说这些不再使用的内存释放和回收的过程。</p>
+<p>​    python有两种机制实现垃圾回收：引用计数、垃圾收集器。</p>
+<p>​    引用计数是记录有多少变量引用了该对象，如果对象被直接或者间接赋值给一个变量，对象的计数器就加1，如果变量被删除，或者离开所做的函数，计数减1，当引用计数归零时，代表无任何地方引用该对象，解释器将该对象安全的销毁。但是他有一个缺点时无法及时回收存在循环引用的对象。</p>
+<p>​    循环引用就是两个对象互相引用对方，这样引用计数始终为1，就不会对其进行垃圾回收，可能会导致内存泄漏。垃圾回收器使用分代回收算法回收垃圾。分为0代1代2代来处理，</p>
+<p>*<em>内存泄漏 *</em></p>
+<p>​    如果存在循环引用，并且循环引用的对象定义了_del__方法，就会发生内存泄漏。</p>
+<p>​    解决内存泄漏的方法主要是循环引用之后记得解除，或者用弱引用。</p>
+<p>​    如果发生了不能回收的情况可以通过gc模块来查看或者sys.getrefcount(obj)来获得对象的引用计数，并根据返回值判断是否泄漏。</p>
+<hr>
+<p>生成器迭代器</p>
+<p>迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。</p>
+<p> 迭代器有两个基本的方法：<strong>iter()</strong> 和 <strong>next()</strong>。 </p>
+<p>在 Python 中，使用了 yield 的函数被称为生成器（generator）。</p>
+<p>跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。 </p>
+<p>在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行。</p>
+<p>调用一个生成器函数，返回的是一个迭代器对象。</p>
+<hr>
+<p> xrange range的区别 </p>
+<p><a href="http://www.nowamagic.net/academy/tag/xrange" target="_blank" rel="noopener">xrange</a> 用法与 range 完全相同，所不同的是生成的不是一个list对象，而是一个生成器。</p>
+<p> python3里面没有xrange，只有range，但是其实这个功能是python2里的xrange。</p>
+<hr>
+<p>lambda new init pass 列表 元组 装饰器</p>
+<h3 id="算法数据结构"><a href="#算法数据结构" class="headerlink" title="算法数据结构"></a>算法数据结构</h3><h5 id="LRU淘汰算法"><a href="#LRU淘汰算法" class="headerlink" title="LRU淘汰算法"></a>LRU淘汰算法</h5><p>（引申到链表的操作，交换节点位置之类的）</p>
+<p>最近最少使用算法 ，先将最近最久未使用的数据淘汰 </p>
+<h5 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h5><p>1、程序内存下的堆和栈</p>
+<p>C语言里栈由操作系统自主分配释放，用来存放函数的参数值、局部变量，操作方式类似于数据结构中的栈。</p>
+<p>堆的申请则是需要malloc free 容易内存泄漏，分配方式类似于链表</p>
+<p>2、数据结构中的堆和栈</p>
+<p>栈先进后出</p>
+<p>堆就是常用的树形结构 特殊的完全二叉树</p>
+<h5 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h5><p>快速排序</p>
+<p>快速排序，又称划分交换排序。通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都要小，然后再按此方法对两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列 </p>
+<p>（1） 从数列中挑选一个元素，称为“基准”</p>
+<p>（2） 重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以放到任意一边，但一般都统一放到一边）。在这个分区结束之后，该基准就处于数列的中间位置。这个称为分区操作</p>
+<p>（3）递归的把小于基准值元素的子数列和大于基准值元素的子数列排序</p>
+<p>递归的最底部情形，是数列的大小基准值元素的子数列和大于基准值元素的子数列排序</p>
+<p>堆排序</p>
+<p>　　<strong>堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。如下图：</strong> </p>
+<p>　　<strong>a.将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;</strong></p>
+<p>　　<strong>b.将堆顶元素与末尾元素交换，将最大元素”沉”到数组末端;</strong></p>
+<p>　　<strong>c.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。</strong></p>
+<p>链表 树</p>
+<p>前序遍历 根左右</p>
+<p>中序遍历 左根右</p>
+<p>后序遍历 左右根</p>
+<p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
+<p>1.一颗树只有一个节点,它的深度是1; </p>
+<p>2.二叉树的根节点只有左子树而没有右子树,那么可以判断,二叉树的深度应该是其左子树的深度加1; </p>
+<p>3.二叉树的根节点只有右子树而没有左子树,那么可以判断,那么二叉树的深度应该是其右树的深度加1; </p>
+<p>4.二叉树的根节点既有右子树又有左子树,那么可以判断,那么二叉树的深度应该是其左右子树的深度较大值加1。 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">如果一棵树只有一个结点，它的深度为1。</span><br><span class="line"></span><br><span class="line">如果根结点只有左子树而没有右子树，那么树的深度应该是其左子树的深度加1；同样如果根结点只有右子树而没有左子树，那么树的深度应该是其右子树的深度加1。计算左子树深度和右子树深度同理（即将当前左或右子树节点看做根节点）。</span><br><span class="line"></span><br><span class="line">如果既有右子树又有左子树，那该树的深度就是其左、右子树深度的较大值加1。</span><br></pre></td></tr></table></figure>
+
+<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><p>引用和指针的区别</p>
+<p>虚函数</p>
+<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><h5 id="计算机网络7层（5层）的架构"><a href="#计算机网络7层（5层）的架构" class="headerlink" title="计算机网络7层（5层）的架构"></a>计算机网络7层（5层）的架构</h5><p>七层模型也就是OSI</p>
+<p>其中高层7654定义了应用程序的功能，下面三层321层主要面向通过网络的端到端，点到点的数据流。</p>
+<p>7 应用层 与其它计算机进行通讯的一个应用 HTTP FTP等</p>
+<p>6 表示层 定义数据格式及加密 加密 ASCII</p>
+<p>5 会话层 如何开始 控制 结束 一个对话 RPC SQL</p>
+<p>4 传输层 是否选择差错恢复协议还是无差错 TCP UDP SPX</p>
+<p>3 网络层 端到端的包传输 IP IPX</p>
+<p>2 数据链路层 单个链路上如何传输数据 ATM FDDI</p>
+<p>1 物理层 传输介质特性 Rj45 802.3等</p>
+<hr>
+<h5 id="TCP协议里面的三次握手和四次握手"><a href="#TCP协议里面的三次握手和四次握手" class="headerlink" title="TCP协议里面的三次握手和四次握手"></a>TCP协议里面的三次握手和四次握手</h5><p>数据传输的时候，应用程序向TCP层发送数据流，TCP就会将接收到的数据流切分成报文段，然后经过层层传递，最终传递给目标节点的TCP层。为了防止丢包TCP协议会在数据包上表有序号，对方收到则发送ACK确认，未收到则重传。</p>
+<p>传送前</p>
+<p>第一次握手：客户端发送SYN包到服务器，等待服务器确认。ACK=0,SYN=1；</p>
+<p>第二次握手：服务器收到SYN，确认，发送SYN+ACK包到客户端。SYN=1;ACK=1;</p>
+<p>第三次握手：客户端收到SYN+ACK包，再次发送ACK和SYN到服务器端，建立连接传输数据。</p>
+<p>传送后</p>
+<p>第一次握手：客户端发送FIN和序号seq=u表示请求关闭；FIN=1</p>
+<p>第二次握手：服务端收到FIN=1，发送ACK确认，ack=u+1</p>
+<p>第三次握手：服务端传完最后的数据发送FIN=1和ACK=1，序号seq改变，ack不变</p>
+<p>第四次握手：客户端收到FIN，发送ACK和seq=u+1，sck=w+1给服务端，这时候服务端进入关闭状态，客户端wait一下之后关闭。</p>
+<h5 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h5><p>TCP可靠、稳定，在传输数据之前会有三次握手来建立连接，而且在数据传递时有确认、窗口、重传、拥塞控制机制。传完之后还会断开链接来节约资源</p>
+<p>但是慢、效率低，占用资源高，容易被攻击。</p>
+<p>UDP快，比TCP稍微安全，没有TCP的握手、确认、窗口、重传等集制，是无状态的传输协议，在传输数据时非常快。但是因为UDP没有上面的一些机制，因此就会在传输数据的时候丢包等。</p>
+<hr>
+<p>随便说几个物理层和数据链路层的协议</p>
+<p>从一个终端发送数据包到另一个终端，分别要给数据加上哪些部分（TCP投、IP头、Mac…）</p>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><ul>
+<li><p>察看文件大小</p>
+</li>
+<li><p>ls -l filename</p>
+</li>
+<li><p>du -sh</p>
+</li>
+</ul>
+<ul>
+<li><p>察看文件多少行</p>
+<p>wc -l filename</p>
+</li>
+<li><p>如何给后台起一个服务</p>
+<h3 id="nohup和-amp"><a href="#nohup和-amp" class="headerlink" title="nohup和&amp;"></a>nohup和&amp;</h3></li>
+<li><p>grep</p>
+<p>文本处理</p>
+</li>
+<li><p>shell</p>
+<p>脚本</p>
+</li>
+</ul>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h3 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h3><p>放平心态，当作一次交流的机会，查漏补缺</p>
+<hr>
+<p><strong>腾讯后台开发</strong></p>
+<p>线程进程</p>
+<p>TCP UDP</p>
+<p>N+1个数字中有N个两两相等成对出现的数字，只有一个是单独的，请找出这个数字 </p>
+<ol>
+<li>N+1个数字中有N个两两相等成对出现的数字，只有一个是单独的，请找出这个数字</li>
+<li>在N个无序无重复的整数中，找到第K大的数字</li>
+</ol>
+<p>def quick_sort(list,start,end):</p>
+<p>​    if start &gt;= end:</p>
+<p>​        return</p>
+<p>​    mid = list[start]</p>
+<p>​    low = start</p>
+<p>​    high = end</p>
+<p>​    while low &lt; high:</p>
+<p>​        while low &lt; high and list[high] &gt;= mid:</p>
+<p>​            high -=1</p>
+<p>​        list[low] = list[high]</p>
+<p>​        while low &lt; high and list[low] &lt; mid:</p>
+<p>​            low += 1</p>
+<p>​        list[high] = list[low]</p>
+<p>​    list[low] = mid</p>
+<p>​    quick_sort(list,start,low -1)</p>
+<p>​    quick_sort(list,low+1,end)</p>
+<hr>
+<p>网易互娱</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">基于机器学习的AI地形利用研究</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">项目说明：</span><br><span class="line">本项目希望能够提高AI对地形的识别与利用，通过不断跑图来收集地形、战场环境数据并让AI进行感知，并进一步利用机器学习分析玩家玩家数据让AI学会利用地形进行高效的逃跑、攻击等行为。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">招募要求：</span><br><span class="line">- 熟练使用python，有开发经验；</span><br><span class="line">- 良好的逻辑思维和编程习惯，具备独立解决技术问题的能力；</span><br><span class="line">- 熟悉深度学习的基本原理，并掌握一种主流深度学习框架；</span><br><span class="line">- 有过强化学习实践的优先</span><br><span class="line">- 有一定猫和老鼠手游的经验</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>python 数据结构</title>
     <url>/zwjun710.github.io/2020/04/02/python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[]]></content>
