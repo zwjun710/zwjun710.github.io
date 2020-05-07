@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 显卡：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
+<meta name="description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 环境配置：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yolov3project">
+<meta property="og:title" content="yolov3project（包括环境配置和基本使用方法）">
 <meta property="og:url" content="https://zwjun710.github.io/2020/03/31/yolov3project/index.html">
 <meta property="og:site_name" content="June&#39;s Daily">
-<meta property="og:description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 显卡：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
+<meta property="og:description" content="主要参考csdn的博客： yolov3：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42747301&#x2F;article&#x2F;details&#x2F;96636614 环境配置：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;raina&#x2F;p&#x2F;11129130.html">
 <meta property="article:published_time" content="2020-03-31T05:25:55.000Z">
-<meta property="article:modified_time" content="2020-03-31T05:26:34.136Z">
+<meta property="article:modified_time" content="2020-04-21T07:21:05.545Z">
 <meta property="article:author" content="June">
 <meta property="article:tag" content="Object detection">
 <meta name="twitter:card" content="summary">
@@ -125,7 +125,7 @@
 
 
 
-  <title>yolov3project | June's Daily</title>
+  <title>yolov3project（包括环境配置和基本使用方法） | June's Daily</title>
   
 
 
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">yolov3project</h1>
+          <h1 class="post-title" itemprop="name headline">yolov3project（包括环境配置和基本使用方法）</h1>
         
 
         <div class="post-meta">
@@ -355,12 +355,14 @@
       
         <p>主要参考csdn的博客：</p>
 <p>yolov3：<a href="https://blog.csdn.net/weixin_42747301/article/details/96636614" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42747301/article/details/96636614</a></p>
-<p>显卡：<a href="https://www.cnblogs.com/raina/p/11129130.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11129130.html</a></p>
+<p>环境配置：<a href="https://www.cnblogs.com/raina/p/11129130.html" target="_blank" rel="noopener">https://www.cnblogs.com/raina/p/11129130.html</a></p>
 <a id="more"></a>
 
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>在进行环境配置的时候出现错误是很正常的，请保持平和心态哈哈哈</p>
-<p>实在不行就关掉电脑出去散个步回来再装</p>
-<p>以上是我的人生经验</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>在进行环境配置的时候出现错误是很正常的，请保持平和心态，不着急不上头。本文不包含所有报错的情况，请熟练掌握百度、GitHub以及科学上网的姿势（谷歌、overflow），有一点独立思考的能力最佳。</p>
+<p>有的时候可能只是一个小小的细节没有修改好，后面会带来看似无法解决的问题，所以最好记录一下自己的步骤，出现问题逐一对照。</p>
+<p>实在不行就关掉电脑出去散个步睡个觉再装！</p>
+<p>祝你好运！</p>
+<p>↑血泪人生经验</p>
 <h2 id="显卡驱动"><a href="#显卡驱动" class="headerlink" title="显卡驱动"></a>显卡驱动</h2><p>实验室电脑Nvidia titan xp，自己的电脑是MX250</p>
 <ol>
 <li>查看自己的GPU型号</li>
@@ -378,7 +380,7 @@
 
 <p>如果没装驱动这时候nvidia-smi应该是没内容的</p>
 <ol>
-<li><p>下载完成后，进行安装，这里记得需要把语言改成English！</p>
+<li><p>下载完成后，进行安装，这里记得需要把<strong>语言改成English</strong>！</p>
 <p>首先卸载原来的驱动</p>
 </li>
 </ol>
@@ -393,7 +395,7 @@
 <p>保存后终端输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure>
 
-<p>结束后重启电脑在终端输入</p>
+<p>结束后<strong>重启电脑</strong>在终端输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
 
 <p>没有任何输出表示屏蔽成功</p>
@@ -426,7 +428,8 @@
 <p>出现类似的情况则表示安装成功</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Sun Jan 5 00:28:09 2020</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.44 Driver Version: 440.44 CUDA Version: 10.2 |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan Temp Perf Pwr:Usage&#x2F;Cap| Memory-Usage | GPU-Util Compute M. |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 GeForce MX250 Off | 00000000:02:00.0 Off | N&#x2F;A |</span><br><span class="line">| N&#x2F;A 59C P0 N&#x2F;A &#x2F; N&#x2F;A | 90MiB &#x2F; 2002MiB | 18% Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes: GPU Memory |</span><br><span class="line">| GPU PID Type Process name Usage |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">| 0 1344 G &#x2F;usr&#x2F;lib&#x2F;xorg&#x2F;Xorg 90MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
 
-<h2 id="cuda-cudnn"><a href="#cuda-cudnn" class="headerlink" title="cuda cudnn"></a>cuda cudnn</h2><ol>
+<h2 id="cuda-cudnn"><a href="#cuda-cudnn" class="headerlink" title="cuda cudnn"></a>cuda cudnn</h2><p>p.s.： 如果你想安装双版本或者多版本的cuda是可以的，安装好之后在bashrc里面切换即可</p>
+<ol>
 <li>下载cuda和cudnn</li>
 </ol>
 <p>cuda:<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
@@ -543,8 +546,28 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">layer     filters    size              input                output</span><br><span class="line">    0 conv     32  3 x 3 &#x2F; 1   416 x 416 x   3   -&gt;   416 x 416 x  32  0.299 BFLOPs</span><br><span class="line">    1 conv     64  3 x 3 &#x2F; 2   416 x 416 x  32   -&gt;   208 x 208 x  64  1.595 BFLOPs</span><br><span class="line">    .......</span><br><span class="line">  105 conv    255  1 x 1 &#x2F; 1    52 x  52 x 256   -&gt;    52 x  52 x 255  0.353 BFLOPs</span><br><span class="line">  106 detection</span><br><span class="line">truth_thresh: Using default &#39;1.000000&#39;</span><br><span class="line">Loading weights from yolov3.weights...Done!</span><br><span class="line">data&#x2F;dog.jpg: Predicted in 0.029329 seconds.</span><br><span class="line">dog: 99%</span><br><span class="line">truck: 93%</span><br><span class="line">bicycle: 99%</span><br></pre></td></tr></table></figure>
 
-<h1 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h1><p>未完待续</p>
-
+<p>正常显示prediction的图和结果，表示配置成功。</p>
+<p>以上就是yolov3配置的所有内容，下面是使用yolov3做一些内容</p>
+<hr>
+<h1 id="训练测试自己的数据集"><a href="#训练测试自己的数据集" class="headerlink" title="训练测试自己的数据集"></a>训练测试自己的数据集</h1><h2 id="设置自己的数据集"><a href="#设置自己的数据集" class="headerlink" title="设置自己的数据集"></a>设置自己的数据集</h2><h2 id="批量测试"><a href="#批量测试" class="headerlink" title="批量测试"></a>批量测试</h2><h2 id="map检测"><a href="#map检测" class="headerlink" title="map检测"></a>map检测</h2><h2 id="画loss和iou曲线"><a href="#画loss和iou曲线" class="headerlink" title="画loss和iou曲线"></a>画loss和iou曲线</h2><hr>
+<h1 id="YOLO配置文件详细说明"><a href="#YOLO配置文件详细说明" class="headerlink" title="YOLO配置文件详细说明"></a>YOLO配置文件详细说明</h1><h2 id="label文件"><a href="#label文件" class="headerlink" title="label文件"></a>label文件</h2><p>YOLO的标签文件格式如下：</p>
+<p>0 0.559470 0.511364 0.207727 0.220000<br>1 0.604773 0.495682 0.115606 0.120000<br>1 0.489470 0.585341 0.067727 0.066591<br>2 0.481894 0.434545 0.010758 0.018182<br>3 0.489773 0.443295 0.013485 0.023409<br>4 0.520530 0.486477 0.115909 0.167500</p>
+<p>第一列代表编号，对应.name文件里面的类别，比如说.name文件里面写的是</p>
+<p>cat</p>
+<p>dog</p>
+<p>door</p>
+<p>window</p>
+<p>bottle</p>
+<p>那么0 -&gt; cat，1 -&gt; dog，2 -&gt; door……，所以出现检测框位置是对的，类别不对，那么就是你的name文件里面类别的顺序放错了。</p>
+<p>后面的四个范围(0,1)之间的值，分别代表x,y,w,h。</p>
+<p>检测框有四个点xmin xmax ymin ymax，图像的大小width*height</p>
+<p>x = (xmin+xmax)/2width</p>
+<p>y = (ymin+ymax)/2height</p>
+<p>w = (xmax - xmin)/width</p>
+<p>h = (ymax - ymin)/height</p>
+<p>即(x,y)代表检测框中点在图像中的相对位置</p>
+<p>(w,h)代表检测框的宽和高在图像的相对大小</p>
+<h2 id="cfg文件"><a href="#cfg文件" class="headerlink" title="cfg文件"></a>cfg文件</h2><h2 id="data-name文件"><a href="#data-name文件" class="headerlink" title="data name文件"></a>data name文件</h2><h2 id="weights文件"><a href="#weights文件" class="headerlink" title="weights文件"></a>weights文件</h2><h2 id="detector"><a href="#detector" class="headerlink" title="detector"></a>detector</h2><h2 id="log文件"><a href="#log文件" class="headerlink" title="log文件"></a>log文件</h2>
       
     </div>
     
@@ -574,7 +597,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/zwjun710.github.io/2020/03/30/labelimage/" rel="next" title="图片标注工具labelimage">
+              <a href="/zwjun710.github.io/2020/03/30/%E6%A0%87%E6%B3%A8%E5%9B%BE%E5%83%8F%E5%B7%A5%E5%85%B7/" rel="next" title="图片标注工具labelimage">
                 <i class="fa fa-chevron-left"></i> 图片标注工具labelimage
               </a>
             
@@ -584,8 +607,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/zwjun710.github.io/2020/04/12/python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="prev" title="面经">
-                面经 <i class="fa fa-chevron-right"></i>
+              <a href="/zwjun710.github.io/2020/04/12/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/" rel="prev" title="面试相关">
+                面试相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -667,7 +690,7 @@
               
                 <a href="/zwjun710.github.io/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -713,7 +736,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显卡驱动"><span class="nav-number">1.1.</span> <span class="nav-text">显卡驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda-cudnn"><span class="nav-number">1.2.</span> <span class="nav-text">cuda cudnn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opencv"><span class="nav-number">1.3.</span> <span class="nav-text">opencv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO下载"><span class="nav-number">2.</span> <span class="nav-text">YOLO下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据集设置"><span class="nav-number">3.</span> <span class="nav-text">数据集设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显卡驱动"><span class="nav-number">1.1.</span> <span class="nav-text">显卡驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda-cudnn"><span class="nav-number">1.2.</span> <span class="nav-text">cuda cudnn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opencv"><span class="nav-number">1.3.</span> <span class="nav-text">opencv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO下载"><span class="nav-number">2.</span> <span class="nav-text">YOLO下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练测试自己的数据集"><span class="nav-number">3.</span> <span class="nav-text">训练测试自己的数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置自己的数据集"><span class="nav-number">3.1.</span> <span class="nav-text">设置自己的数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量测试"><span class="nav-number">3.2.</span> <span class="nav-text">批量测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map检测"><span class="nav-number">3.3.</span> <span class="nav-text">map检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画loss和iou曲线"><span class="nav-number">3.4.</span> <span class="nav-text">画loss和iou曲线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO配置文件详细说明"><span class="nav-number">4.</span> <span class="nav-text">YOLO配置文件详细说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#label文件"><span class="nav-number">4.1.</span> <span class="nav-text">label文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cfg文件"><span class="nav-number">4.2.</span> <span class="nav-text">cfg文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-name文件"><span class="nav-number">4.3.</span> <span class="nav-text">data name文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weights文件"><span class="nav-number">4.4.</span> <span class="nav-text">weights文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detector"><span class="nav-number">4.5.</span> <span class="nav-text">detector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log文件"><span class="nav-number">4.6.</span> <span class="nav-text">log文件</span></a></li></ol></li></ol></div>
             
 
           </div>
